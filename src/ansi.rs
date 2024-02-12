@@ -29,7 +29,7 @@ pub fn strip_ansi(s: &str) -> String {
                 }
             }
             State::Csi => {
-                if b >= '\x40' && b <= '\x7F' {
+                if ('\x40'..='\x7F').contains(&b) {
                     state = State::Normal;
                 }
             }

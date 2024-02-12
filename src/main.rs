@@ -27,7 +27,7 @@ use ansi::strip_ansi;
 use arrow_utils::value_string;
 use escape::{escape_html, escape_query};
 
-const SCHEMA_HELP: &'static str = r#"
+const SCHEMA_HELP: &str = r#"
 <details style="margin-left: 8%; margin-top: 10px">
 <summary>Schema</summary>
 <p>These are the most useful columns.</p>
@@ -92,7 +92,7 @@ const SCHEMA_HELP: &'static str = r#"
 </details>
 "#;
 
-const EXAMPLES: &[(&'static str, &'static str)] = &[
+const EXAMPLES: &[(&str, &str)] = &[
     (
         "All data",
         r#"
@@ -193,7 +193,7 @@ async fn query(prql: &str) -> Result<String> {
         // This does nothing, it actually always returns ANSI colours.
         color: false,
     };
-    let sql = compile(&prql, opts).map_err(|e| anyhow!("{}", strip_ansi(&e.to_string())))?;
+    let sql = compile(prql, opts).map_err(|e| anyhow!("{}", strip_ansi(&e.to_string())))?;
 
     dbg!(&sql);
 
@@ -230,7 +230,7 @@ async fn query(prql: &str) -> Result<String> {
             table_html += "<thead><tr>";
             for col in batch.column_names() {
                 table_html += "<th>";
-                table_html += &escape_html(&col);
+                table_html += &escape_html(col);
                 table_html += "</th>";
             }
             table_html += "</tr></thead><tbody>";
