@@ -93,10 +93,15 @@ const SCHEMA_HELP: &'static str = r#"
 "#;
 
 const EXAMPLES: &[(&'static str, &'static str)] = &[
-    ("All data", r#"
+    (
+        "All data",
+        r#"
 from queue
-"#),
-    ("Aggregate CPU and memory use by user and job state", r#"
+"#,
+    ),
+    (
+        "Aggregate CPU and memory use by user and job state",
+        r#"
 from queue
 derive {
   mem_gb = node_count * memory_per_node / 1024,
@@ -108,8 +113,11 @@ group {user_name, job_state} (
   }
 )
 sort { -total_mem_gb }
-"#),
-    ("Number of jobs by user", r#"
+"#,
+    ),
+    (
+        "Number of jobs by user",
+        r#"
 from queue
 group user_name (
   aggregate {
@@ -117,8 +125,11 @@ group user_name (
   }
 )
 sort (-num_jobs)
-"#),
-    ("Number of jobs by user/account", r#"
+"#,
+    ),
+    (
+        "Number of jobs by user/account",
+        r#"
 from queue
 group {user_name, account} (
   aggregate {
@@ -126,8 +137,11 @@ group {user_name, account} (
   }
 )
 sort (-num_jobs)
-"#),
-    ("Number of jobs by user with no account", r#"
+"#,
+    ),
+    (
+        "Number of jobs by user with no account",
+        r#"
 from queue
 filter account == "none"
 group user_name (
@@ -136,7 +150,8 @@ group user_name (
   }
 )
 sort (-num_jobs)
-"#),
+"#,
+    ),
 ];
 
 /// Run `squeue --json` and write it to a file called 'squeue.json' in a
