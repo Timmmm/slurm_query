@@ -159,8 +159,7 @@ sort (-num_jobs)
 /// so it is possible to close the file without deleting it. That's necessary
 /// on Windows otherwise DuckDB won't read it due to file locking.
 async fn squeue_json() -> Result<TempDir> {
-    let mut child = Command::new("squeue")
-        .arg("--json")
+    let mut child = Command::new("./squeue_jobs")
         .stdout(Stdio::piped())
         .spawn()?;
 
@@ -256,7 +255,7 @@ async fn query(prql: &str) -> Result<String> {
 async fn main() {
     let app = Router::new().route("/", get(index));
 
-    let listener = tokio::net::TcpListener::bind("127.0.0.1:3000")
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:9111")
         .await
         .unwrap();
     println!("listening on http://{}", listener.local_addr().unwrap());
